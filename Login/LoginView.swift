@@ -96,10 +96,10 @@ struct LoginView: View {
                             .keyboardType(.numberPad)
                                                 
                         // Champ de texte pour la relation familiale
-                        TextField("Family Relationship", text: $familyRelationship)
+                        TextField("Membre de la famille", text: $familyRelationship)
                                                 
                         // Champ de texte pour le souvenir familial préféré
-                        TextField("Favorite Family Memory", text: $favoriteMemory)
+                        TextField("Souvenirs de famille préférés", text: $favoriteMemory)
                         
                     }
                     .padding(12)
