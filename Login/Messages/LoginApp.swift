@@ -7,11 +7,15 @@
 
 import SwiftUI
 
+
+
 @main
 struct LoginApp: App {
+    @StateObject var spotVM = SaveViewModel()
     var body: some Scene {
         WindowGroup {
             LoginView()
+                .environmentObject(spotVM)
         }
     }
 }

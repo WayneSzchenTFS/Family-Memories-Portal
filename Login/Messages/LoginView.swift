@@ -10,14 +10,15 @@ import Firebase
 import FirebaseStorage
 
 struct LoginView: View {
+    @State private var sheetIsPresented = false
+    @Environment(\.dismiss) private var dismiss
+    @State private var isLoggedIn = false // Add a new state variable to track login status
+
     
     @State var isLoginMode = false
      @State var email = ""
      @State var password = ""
-     @State var name = "" // Nouveau champ de texte pour le nom
-     @State var age = "" // Nouveau champ de texte pour l'âge
-     @State var familyRelationship = "" // Nouveau champ de texte pour la relation familiale
-     @State var favoriteMemory = "" // Nouveau champ de texte pour le souvenir familial préféré
+     
     
     @State var shouldShowImagePicker = false
     
@@ -70,20 +71,7 @@ struct LoginView: View {
                                 .autocapitalization(.none)
                             // Champ de saisie pour le mot de passe
                             SecureField("Mot de passe", text: $password) //pour plus de sécurité
-                            
-                            // Champ de texte pour le nom
-                            TextField("Nom entier", text: $name)
-                                .autocapitalization(.words)
-                            
-                            // Champ de texte pour l'âge
-                            TextField("Age", text: $age)
-                                .keyboardType(.numberPad)
-                            
-                            // Champ de texte pour la relation familiale
-                            TextField("Membre de la famille", text: $familyRelationship)
-                            
-                            // Champ de texte pour le souvenir familial préféré
-                            TextField("Souvenirs de famille préférés", text: $favoriteMemory)
+                        
                             
                         }
                         .padding(12)
@@ -108,6 +96,8 @@ struct LoginView: View {
                         // Bouton de connexion ou de création de compte
                         Button {
                             handleAction()
+                            
+                            
                         } label: {
                             HStack {
                                 Spacer()
@@ -135,6 +125,10 @@ struct LoginView: View {
             .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
                 ImagePicker(image: $image)
             }
+
+        }
+        .fullScreenCover(isPresented: $sheetIsPresented) {
+            SaveDetailView(spot: LoginSaveModel())
         }
     }
     
@@ -144,6 +138,42 @@ struct LoginView: View {
         if isLoginMode {
             // Connexion de l'utilisateur existant à Firebase avec les informations d'identification fournies
             loginUser()
+            //1. self.isLoggedIn = true
+
+            sheetIsPresented.toggle()
+            
+            /*
+            List {
+                Text("List items will go here")
+            }
+            .listStyle(.plain)
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Sign Out") {
+                        do {
+                            try Auth.auth().signOut()
+                            print("Succesfull")
+                            dismiss()
+                        }catch {
+                            print("error")
+                        }
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        sheetIsPresented.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+              .sheet(isPresented: $sheetIsPresented) {
+                  NavigationStack {
+                      SaveDetailView(spot: LoginSaveModel())
+                  }
+              }
+              */
         } else {
             // Création d'un nouveau compte utilisateur dans Firebase Auth, puis stockage de l'image dans Storage
             createNewAccount()
