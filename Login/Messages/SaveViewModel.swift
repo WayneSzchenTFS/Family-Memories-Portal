@@ -14,26 +14,27 @@ class SaveViewModel: ObservableObject {
     func saveData(spot: LoginSaveModel) async -> Bool {
         let db = Firestore.firestore()
         
+        // Vérifie si le modèle 'spot' a déjà un identifiant attribué
         if let id = spot.id {
             do {
+                // Tente de mettre à jour les données dans la collection "users" avec l'identifiant correspondant
                 try await db.collection("users").document(id).setData(spot.dictionary)
-                print("Data updated successfully")
+                print("Données mises à jour avec succès")
                 return true
             } catch {
-                print("Could not update data in 'spots' \(error.localizedDescription)")
+                print("Impossible de mettre à jour les données dans 'spots' \(error.localizedDescription)")
                 return false
             }
         } else {
             do {
+                // Tente de créer de nouvelles données dans la collection "users"
                 try await db.collection("users").addDocument(data: spot.dictionary)
-                print("Data created successfully")
+                print("Données créées avec succès")
                 return true
             } catch {
-                print("Could not create a new data in 'spots' \(error.localizedDescription)")
+                print("Impossible de créer de nouvelles données dans 'spots' \(error.localizedDescription)")
                 return false
-                
             }
         }
-        
     }
 }

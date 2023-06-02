@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit
+ //code qui permet d'afficher les images
 
 struct ImagePicker: UIViewControllerRepresentable {
     

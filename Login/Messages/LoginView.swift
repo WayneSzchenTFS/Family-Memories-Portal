@@ -11,8 +11,8 @@ import FirebaseStorage
 
 struct LoginView: View {
     @State private var sheetIsPresented = false
-    @Environment(\.dismiss) private var dismiss
-    @State private var isLoggedIn = false // Add a new state variable to track login status
+    //@Environment(\.dismiss) private var dismiss
+
 
     
     @State var isLoginMode = false
@@ -78,12 +78,12 @@ struct LoginView: View {
                         .background(Color.white)
                         
                         ScrollView {
-                            VStack {
+                            VStack {// titre
                                 Text("Bienvenue dans notre application familiale !")
                                     .font(.headline)
                                     .multilineTextAlignment(.center)
                                     .padding()
-                                
+                                //description de l'application sur l'inteface
                                 Text("Cette application vous permet de créer des comptes familiaux et de partager vos souvenirs préférés avec votre famille. Vous pouvez stocker des informations telles que le nom, l'âge, la relation familiale et le souvenir familial préféré de chaque membre de la famille. Profitez de cette plateforme pour renforcer les liens familiaux et créer des souvenirs durables.")
                                     .multilineTextAlignment(.center)
                                     .padding()
@@ -142,7 +142,7 @@ struct LoginView: View {
 
             sheetIsPresented.toggle()
             
-            /*
+            /* Code précédente, ne fonction pas trop
             List {
                 Text("List items will go here")
             }
@@ -189,6 +189,7 @@ struct LoginView: View {
             }
             
             print("Connexion réussie en tant qu'utilisateur: \(result?.user.uid ?? "")")
+            //Je veux que ceci apparait quand on se connecte mais ça ne fonctionne pas
             MainMessagesView()
             self.loginStatusMessage = "Connexion réussie en tant qu'utilisateur: \(result?.user.uid ?? "")"
             
@@ -197,7 +198,7 @@ struct LoginView: View {
     
     @State var loginStatusMessage = ""
     
-    private func createNewAccount() {
+    private func createNewAccount() { //crée un compte, affiche un message si ça ne fonctionne pas
         FirebaseManager.shared.auth.createUser(withEmail: email, password: password) { result, err in
             if let err = err {
                 print("Erreur dans la création de l'utilisateur:", err)

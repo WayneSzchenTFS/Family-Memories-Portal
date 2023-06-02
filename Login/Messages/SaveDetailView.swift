@@ -65,8 +65,6 @@ struct SaveDetailView: View {
                             print("Error saving spot")
                         }
                     }
-                    // Perform save operation
-                    // You can add your logic here
                     dismiss()
                 }
                 .padding()
@@ -79,7 +77,7 @@ struct SaveDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         }
-        /*
+        /* Code précédente:
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(spot.id == nil)
         .toolbar {

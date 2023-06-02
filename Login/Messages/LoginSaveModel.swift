@@ -16,7 +16,7 @@ struct LoginSaveModel: Identifiable, Codable {
     var souvenir = ""
     
     
-    //
+    //Créer un modèle pour Cloud Firebase des types d'informations qui va être sauvegardér
     
     var dictionary : [String: Any] {
         return ["name": name, "age": age, "Rôle dans la famille": rôle_famille, "Souvenirs préférés": souvenir]
